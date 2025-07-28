@@ -57,31 +57,31 @@ def economic_indicator(OUT_DIR, OUT1):
 # economic_indicator(OUT_DIR, OUT1)
 
 def bond_line(OUT_DIR, OUT2):
-    gk = pd.read_excel(OUT2, sheet_name='국고채(3년)')   # 국고채 시트
-    hs = pd.read_excel(OUT2, sheet_name='회사채(3년, AA-)')   # 회사채 시트
+    gk = pd.read_excel(OUT2, sheet_name='국고채(3년)')[['TIME', 'DATA_VALUE', 'ITEM_NAME1']].copy()   # 국고채 시트
+    hs = pd.read_excel(OUT2, sheet_name='회사채(3년, AA-)')[['TIME', 'DATA_VALUE', 'ITEM_NAME1']].copy()   # 회사채 시트
 
     gk['TIME'] = pd.to_datetime(gk['TIME'], format="%Y%m")
     gk['DATA_VALUE'] = gk['DATA_VALUE'].astype(float)
 
-    hs = hs[['날짜', '수익률']].rename(columns={'수익률': '회사채'})
     hs['TIME'] = pd.to_datetime(hs['TIME'], format="%Y%m")
     hs['DATA_VALUE'] = hs['DATA_VALUE'].astype(float)
 
-    # 월별 기준 병합
-    df = pd.merge(gk, hs, on='TIME')
-    df = df.sort_values('TIME')
 
-    sns.set_theme(context="poster", style="whitegrid", font="Malgun Gothic")
-    sns.set_style({'grid.linestyle': ":", "grid.color": "#CCCCCC"})
+    # 하나의 리스트에 concat
+    df = pd.concat([gk, hs], ignore_index=True)
+    df = df.rename(columns={'수익률': '금리'})  # seaborn용 공통 컬럼명
 
-    # 📈 5. 선 그래프 그리기 (matplotlib 사용)
-    plt.figure(figsize=(16, 9), dpi=100)
-    plt.plot(df['날짜'], df['국고채'], label='국고채', color='blue')
-    plt.plot(df['날짜'], df['회사채'], label='회사채', color='orange')
-    plt.title('국고채 vs 회사채 금리')
-    plt.xlabel('날짜')
-    plt.ylabel('금리 (%)')
-    plt.legend()
-    plt.grid(True)
+    # 시각화
+    sns.set_theme(style='whitegrid', font='Malgun Gothic')
+    fig, ax = plt.subplots(figsize=(16, 9), dpi=100)
+
+    sns.lineplot(data=df, x='TIME', y='DATA_VALUE', hue='ITEM_NAME1', ax=ax)
+
+    ax.set(xlabel='', ylabel='시장금리')
+    ax.legend_.set_title(None)
+
     plt.tight_layout()
     plt.show()
+    fig.savefig(OUT_DIR / "bond.png")
+    
+bond_line(OUT_DIR, OUT2)
