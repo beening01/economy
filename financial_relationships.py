@@ -30,12 +30,14 @@ def corr_heatmap(OUT_DIR, OUT1):
 
     # 레이아웃 개선
     fig.update_layout(
-        title="📊 금융지표 간 상관관계 히트맵",
-        width=900,
-        height=700,
-        font=dict(size=14),
-        margin=dict(t=80, l=120),
+    title="📊 금융지표 간 상관관계 히트맵",
+    width=1200,
+    height=800,
+    font=dict(size=13),
+    margin=dict(t=80, l=250),  # 왼쪽 여백 더 늘림
+    yaxis=dict(automargin=True)  # 자동 여백 적용
     )
+    fig.update_yaxes(tickangle=0)  # 0도: 수평
 
     fig.show()
     # 이미지 저장 (plotly는 .write_image 사용)
