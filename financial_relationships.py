@@ -14,7 +14,7 @@ df = df.pivot(index="TIME", columns="ITEM_NAME1", values="DATA_VALUE").dropna()
 df.rename(columns={
     '한국은행 기준금리': '기준금리',
     'KOSPI지수': 'KOSPI',
-    '원/미국달러(매매기준율)': '환율'
+    '원/미국달러(매매기준율)': '원달러환율'
 }, inplace=True)
 
 def corr_heatmap(OUT_DIR, df):
@@ -48,7 +48,7 @@ def corr_heatmap(OUT_DIR, df):
     # 이미지 저장 (plotly는 .write_image 사용)
     fig.write_image(str(OUT_DIR / "corr_heatmap.png"))
 
-# corr_heatmap(OUT_DIR, df)
+corr_heatmap(OUT_DIR, df)
 
 def bubble(OUT_DIR, df):
     # ------------------------------------
@@ -90,4 +90,4 @@ def bubble(OUT_DIR, df):
     fig.write_image(str(OUT_DIR / "bubble.png"))
 
 
-bubble(OUT_DIR, df)
+# bubble(OUT_DIR, df)
