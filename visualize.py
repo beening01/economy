@@ -19,7 +19,7 @@ def kospi(OUT_DIR, OUT1):
     sns.set_theme(context="poster", style="whitegrid", font="Malgun Gothic")
     sns.set_style({'grid.linestyle': ":", "grid.color": "#CCCCCC"})
 
-    fig, ax = plt.subplots(figsize=(16, 9), dpi=100)    # 크기 및 해상도
+    fig, ax = plt.subplots(figsize=(20, 8), dpi=100)    # 크기 및 해상도
     sns.lineplot(data=df, x="TIME", y="DATA_VALUE", ax=ax)    # 선 그래프
     sns.despine(top=True, right=True)    # 축 제거 여부
     ax.set(title="코스피지수", xlabel="날짜", ylabel="지수")
@@ -83,5 +83,5 @@ def bond_line(OUT_DIR, OUT2):
     plt.tight_layout()
     plt.show()
     fig.savefig(OUT_DIR / "bond.png")
-    
-bond_line(OUT_DIR, OUT2)
+
+# bond_line(OUT_DIR, OUT2)

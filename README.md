@@ -86,7 +86,7 @@ economic_indicator/
 
 ---
 ## 📈 추가 분석: 금융지표 간 상관관계 해석
-![채권금리 스프레드](outputs/corr_haetmap.png)
+![상관관계](outputs/corr_heatmap.png)
 
 금융지표들 간의 상관관계를 시각화하기 위해 상관관계 히트맵을 생성하였습니다.  
 아래는 분석 결과를 바탕으로 도출할 수 있는 주요 인사이트입니다:
